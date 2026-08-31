@@ -1,0 +1,12 @@
+FROM deepseek-r1:8b
+
+# No system prompt: R1-family models are degraded by one - instructions belong
+# in the user message.
+PARAMETER num_ctx 8192
+
+# DeepSeek recommends temperature 0.6. Measured on this CPU-only box that is the
+# wrong trade: 0.6 took 705s on a bug-fix, 0.2 took 223s for the same correct
+# answer. Higher temperature buys rambling, and rambling is billed in minutes here.
+PARAMETER temperature 0.25
+PARAMETER top_p 0.95
+PARAMETER num_predict 2500

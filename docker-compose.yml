@@ -1,0 +1,65 @@
+name: local-llm
+
+services:
+  # Phase 2 - Interface. Also carries Phase 3 (memory) and Phase 4 (RAG).
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: always
+    ports:
+      - "3000:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      # Phase 1 - talks to Ollama running natively on the Windows host
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+    volumes:
+      - open-webui:/app/backend/data
+    depends_on:
+      - jupyter
+
+  # Phase 5 - real code execution: filesystem, tests, terminal.
+  # Replaces the default pyodide engine, which is a browser sandbox.
+  jupyter:
+    image: quay.io/jupyter/scipy-notebook:latest
+    container_name: jupyter
+    restart: always
+    ports:
+      - "8889:8888"   # host 8889: 8888 is taken by your searxng container
+    environment:
+      JUPYTER_TOKEN: ${JUPYTER_TOKEN}
+    volumes:
+      - ./workspace:/home/jovyan/work
+    command:
+      - start-notebook.py
+      - --IdentityProvider.token=${JUPYTER_TOKEN}
+      - --ServerApp.ip=0.0.0.0
+      - --ServerApp.allow_origin=*
+      - --ServerApp.disable_check_xsrf=True
+      - --ServerApp.root_dir=/home/jovyan/work
+
+  # Phase 6 - automation layer, last on purpose.
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    container_name: n8n
+    restart: always
+    ports:
+      - "5678:5678"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      # http://localhost, not https, so the login cookie is accepted
+      N8N_SECURE_COOKIE: "false"
+      GENERIC_TIMEZONE: ${GENERIC_TIMEZONE}
+      TZ: ${GENERIC_TIMEZONE}
+      # reachable inside the compose network as http://open-webui:8080
+      OLLAMA_HOST: host.docker.internal:11434
+    volumes:
+      - n8n:/home/node/.n8n
+      - ./workspace:/data/workspace
+
+volumes:
+  # pre-existing volume from the earlier docker run - keeps your chat history
+  open-webui:
+    external: true
+  n8n:

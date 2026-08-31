@@ -1,0 +1,48 @@
+{
+  "openrouter": [
+    "cohere/north-mini-code:free",
+    "dots-studio/dots-3-note-preview:free",
+    "inclusionai/ling-3.0-flash-fin:free",
+    "liquid/lfm-2.5-2.6b:free",
+    "minimax/minimax-m2.7:free",
+    "minimax/minimax-m3:free",
+    "nvidia/nemotron-3-super-120b-a12b:free",
+    "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "nvidia/nemotron-3.5-lightning:free",
+    "poolside/laguna-s-2.1:free"
+  ],
+  "gemini": [
+    "models/gemini-3-flash-preview",
+    "models/gemini-3.1-flash-lite",
+    "models/gemini-3.1-flash-lite-preview",
+    "models/gemini-3.5-flash",
+    "models/gemini-3.5-flash-lite",
+    "models/gemini-3.6-flash",
+    "models/gemini-3.7-flash",
+    "models/gemini-flash-latest",
+    "models/gemini-flash-lite-latest",
+    "models/gemma-4-26b-a4b-it",
+    "models/gemma-4-31b-it"
+  ],
+  "rejected": {
+    "openrouter": {
+      "thinkingmachines/inkling-small:free": "403 thinkingmachines/inkling-small:free is only available on agentic harne",
+      "thinkingmachines/inkling:free": "403 thinkingmachines/inkling:free is only available on agentic harnesses. ",
+      "z-ai/glm-5.2:free": "429 Provider returned error (after 2 tries)",
+      "poolside/laguna-xs-2.1:free": "429 Provider returned error (after 2 tries)",
+      "google/gemma-4-26b-a4b-it:free": "429 Provider returned error (after 2 tries)",
+      "google/gemma-4-31b-it:free": "429 Provider returned error (after 2 tries)"
+    },
+    "gemini": {
+      "models/gemini-2.5-pro": "404 This model models/gemini-2.5-pro is no longer available to new users. ",
+      "models/gemini-2.5-flash": "404 This model models/gemini-2.5-flash is no longer available to new users",
+      "models/gemini-pro-latest": "429 You exceeded your current quota, please check your plan and billing de (after 2 tries)",
+      "models/gemini-2.5-flash-lite": "404 This model models/gemini-2.5-flash-lite is no longer available to new ",
+      "models/gemini-3.1-pro-preview": "429 You exceeded your current quota, please check your plan and billing de (after 2 tries)",
+      "models/gemini-3.1-pro-preview-customtools": "429 You exceeded your current quota, please check your plan and billing de (after 2 tries)",
+      "models/nano-banana-pro-preview": "429 You exceeded your current quota, please check your plan and billing de (after 2 tries)",
+      "models/gemini-omni-flash-preview": "429 You exceeded your current quota, please check your plan and billing de (after 2 tries)",
+      "models/gemini-omni-1.1-flash": "429 You exceeded your current quota, please check your plan and billing de (after 2 tries)"
+    }
+  }
+}
